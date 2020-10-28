@@ -1,6 +1,6 @@
 docker-ebotweb
 ================
-Dockerised eBot (https://github.com/deStrO/eBot-CSGO-Web) for ease of use.
+Dockerised eBot (https://github.com/deStrO/eBot-CSGO-Web) for ease of use.  
 This docker image use my own fork (https://github.com/enghausen/eBot-CSGO-Web) for future changes.
 
 Docker Compose
