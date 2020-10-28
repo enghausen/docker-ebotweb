@@ -1,6 +1,6 @@
-FROM php:5.6.25-apache
+FROM php:5.6.40-apache
 
-ENV TIMEZONE="Europe/Paris"
+ENV TIMEZONE="Europe/Copenhagen"
 
 RUN mkdir -p /opt/ebot/demos /opt/ebot/logs && a2enmod rewrite && \
     docker-php-ext-install pdo_mysql && \
@@ -8,7 +8,7 @@ RUN mkdir -p /opt/ebot/demos /opt/ebot/logs && a2enmod rewrite && \
     apt-get update && apt-get -y install zip netcat && \
     apt-get clean && \
     rm -rf /var/www/html/* && \
-    curl -L https://github.com/deStrO/eBot-CSGO-Web/archive/master.zip >> /tmp/master.zip && \
+    curl -L https://github.com/enghausen/eBot-CSGO-Web/archive/master.zip >> /tmp/master.zip && \
     unzip -d /var/www/html /tmp/master.zip && \
     rm -rf /tmp/* && \
     mv /var/www/html/eBot-CSGO-Web-master/* /var/www/html/ &&\
