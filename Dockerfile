@@ -22,7 +22,7 @@ COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
 
 COPY entrypoint.sh /sbin/entrypoint.sh
 
-Run chmod +x /sbin/entrypoint.sh
+RUN chmod +x /sbin/entrypoint.sh
 
 EXPOSE 80
 
