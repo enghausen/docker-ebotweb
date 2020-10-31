@@ -8,11 +8,11 @@ RUN mkdir -p /opt/ebot/demos /opt/ebot/logs && a2enmod rewrite && \
     apt-get update && apt-get -y install zip netcat && \
     apt-get clean && \
     rm -rf /var/www/html/* && \
-    curl -L https://github.com/enghausen/eBot-CSGO-Web/archive/master.zip >> /tmp/master.zip && \
-    unzip -d /var/www/html /tmp/master.zip && \
+    curl -L https://github.com/enghausen/eBot-CSGO-Web/archive/ssl.zip >> /tmp/ssl.zip && \
+    unzip -d /var/www/html /tmp/ssl.zip && \
     rm -rf /tmp/* && \
-    mv /var/www/html/eBot-CSGO-Web-master/* /var/www/html/ &&\
-    rm -rf /var/www/html/eBot-CSGO-Web-master /var/www/html/web/installation && \
+    mv /var/www/html/eBot-CSGO-Web-ssl/* /var/www/html/ &&\
+    rm -rf /var/www/html/eBot-CSGO-Web-ssl /var/www/html/web/installation && \
     cp /var/www/html/config/app_user.yml.default /var/www/html/config/app_user.yml && \    
     chown www-data:www-data -R /var/www /opt/ebot
 
