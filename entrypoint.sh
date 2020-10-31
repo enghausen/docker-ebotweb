@@ -2,6 +2,7 @@
 
 EBOT_WEB_HOME='/var/www/html'
 
+EBOT_PROTO="${EBOT_PROTO:-http://}"
 EBOT_IP="${EBOT_IP:-}"
 EBOT_PORT="${EBOT_PORT:-12360}"
 
@@ -39,6 +40,7 @@ then
     sed -i "s|log_match_admin:.*|log_match_admin: ${LOG_FOLDER}/log_match_admin|" $EBOT_WEB_HOME/config/app_user.yml
     sed -i "s|demo_path:.*|demo_path: ${DEMO_FOLDER}|" $EBOT_WEB_HOME/config/app_user.yml
     sed -i "s|default_rules:.*|default_rules: ${DEFAULT_RULES}|" $EBOT_WEB_HOME/config/app_user.yml
+    sed -i "s|ebot_proto:.*|ebot_proto: ${EBOT_PROTO}|" $EBOT_WEB_HOME/config/app_user.yml
     sed -i "s|ebot_ip:.*|ebot_ip: ${EBOT_IP}|" $EBOT_WEB_HOME/config/app_user.yml
     sed -i "s|ebot_port:.*|ebot_port: ${EBOT_PORT}|" $EBOT_WEB_HOME/config/app_user.yml
     sed -i "s|demo_download:.*|demo_download: ${DEMO_DOWNLOAD}|" $EBOT_WEB_HOME/config/app_user.yml
