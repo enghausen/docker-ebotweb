@@ -1,6 +1,8 @@
 #!/bin/bash
 
 SERVERNAME="${SERVERNAME:-ebot.doamin.com}"
+SSL_CERTIFICATE_PATH="${SSL_CERTIFICATE_PATH:-ssl/cert.pem}"
+SSL_KEY_PATH="${SSL_KEY_PATH:-ssl/key.pem}"
 
 EBOT_WEB_HOME='/var/www/html'
 
@@ -56,6 +58,8 @@ then
     sed -i "s|ServerName.*|ServerName $SERVERNAME|" /etc/apache2/sites-available/000-default.conf
     sed -i "s|{SERVER_NAME} =.*|{SERVER_NAME} =$SERVERNAME|" /etc/apache2/sites-available/000-default.conf
     sed -i "s|ServerName.*|ServerName $SERVERNAME|" /etc/apache2/sites-available/default-ssl.conf
+    sed -i "s|SSLCertificateFile.*|SSLCertificateFile $SSL_CERTIFICATE_PATH|" /etc/apache2/sites-available/default-ssl.conf
+    sed -i "s|SSLCertificateKeyFile.*|SSLCertificateKeyFile $SSL_KEY_PATH|" /etc/apache2/sites-available/default-ssl.conf
     
     touch .installed
 fi
