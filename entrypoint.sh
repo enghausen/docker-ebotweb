@@ -1,8 +1,10 @@
 #!/bin/bash
 
+SERVERNAME="${SERVERNAME:-ebot.doamin.com}"
+
 EBOT_WEB_HOME='/var/www/html'
 
-EBOT_PROTO="${EBOT_PROTO:-http://}"
+EBOT_PROTO="${EBOT_PROTO:-https://}"
 EBOT_IP="${EBOT_IP:-}"
 EBOT_PORT="${EBOT_PORT:-12360}"
 
@@ -49,6 +51,11 @@ then
     sed -i "s|toornament_api_key:.*|toornament_api_key: ${TOORNAMENT_API_KEY}|" $EBOT_WEB_HOME/config/app_user.yml
     sed -i "s|toornament_plugin_key:.*|toornament_plugin_key: ${TOORNAMENT_PLUGIN_KEY}|" $EBOT_WEB_HOME/config/app_user.yml
     sed -i "s|maps:.*|maps: [ ${MAPS} ]|" $EBOT_WEB_HOME/config/app.yml
+    
+    # Apache Config
+    sed -i "s|ServerName.*|ServerName $SERVERNAME|" /etc/apache2/sites-available/000-default.conf
+    sed -i "s|{SERVER_NAME} =.*|{SERVER_NAME} =$SERVERNAME|" /etc/apache2/sites-available/000-default.conf
+    sed -i "s|ServerName.*|ServerName $SERVERNAME|" /etc/apache2/sites-available/default-ssl.conf
     
     touch .installed
 fi
