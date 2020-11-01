@@ -22,6 +22,8 @@ COPY 000-default.conf default-ssl.conf /etc/apache2/sites-available/
 
 COPY options-ssl-apache.conf /etc/apache2/conf-available/
 
+RUN  a2ensite default-ssl.conf 
+
 COPY entrypoint.sh /sbin/entrypoint.sh
 
 RUN chmod +x /sbin/entrypoint.sh
