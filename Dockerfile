@@ -18,12 +18,12 @@ RUN mkdir -p /opt/ebot/demos /opt/ebot/logs && a2enmod rewrite && \
 
 RUN sed -i 's@#RewriteBase /@RewriteBase /@g' /var/www/html/web/.htaccess
 
-COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
+COPY 000-default.conf default-ssl.conf options-ssl-apache.conf /etc/apache2/sites-available/
 
 COPY entrypoint.sh /sbin/entrypoint.sh
 
 RUN chmod +x /sbin/entrypoint.sh
 
-EXPOSE 80
+EXPOSE 80 443
 
 ENTRYPOINT ["/sbin/entrypoint.sh"]
