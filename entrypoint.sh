@@ -1,7 +1,12 @@
 #!/bin/bash
 
+SERVERNAME="${SERVERNAME:-ebot.doamin.com}"
+SSL_CERTIFICATE_PATH="${SSL_CERTIFICATE_PATH:-/ssl/cert.pem}"
+SSL_KEY_PATH="${SSL_KEY_PATH:-/ssl/key.pem}"
+
 EBOT_WEB_HOME='/var/www/html'
 
+EBOT_PROTO="${EBOT_PROTO:-https://}"
 EBOT_IP="${EBOT_IP:-}"
 EBOT_PORT="${EBOT_PORT:-12360}"
 
@@ -39,6 +44,7 @@ then
     sed -i "s|log_match_admin:.*|log_match_admin: ${LOG_FOLDER}/log_match_admin|" $EBOT_WEB_HOME/config/app_user.yml
     sed -i "s|demo_path:.*|demo_path: ${DEMO_FOLDER}|" $EBOT_WEB_HOME/config/app_user.yml
     sed -i "s|default_rules:.*|default_rules: ${DEFAULT_RULES}|" $EBOT_WEB_HOME/config/app_user.yml
+    sed -i "s|ebot_proto:.*|ebot_proto: ${EBOT_PROTO}|" $EBOT_WEB_HOME/config/app_user.yml
     sed -i "s|ebot_ip:.*|ebot_ip: ${EBOT_IP}|" $EBOT_WEB_HOME/config/app_user.yml
     sed -i "s|ebot_port:.*|ebot_port: ${EBOT_PORT}|" $EBOT_WEB_HOME/config/app_user.yml
     sed -i "s|demo_download:.*|demo_download: ${DEMO_DOWNLOAD}|" $EBOT_WEB_HOME/config/app_user.yml
@@ -47,6 +53,13 @@ then
     sed -i "s|toornament_api_key:.*|toornament_api_key: ${TOORNAMENT_API_KEY}|" $EBOT_WEB_HOME/config/app_user.yml
     sed -i "s|toornament_plugin_key:.*|toornament_plugin_key: ${TOORNAMENT_PLUGIN_KEY}|" $EBOT_WEB_HOME/config/app_user.yml
     sed -i "s|maps:.*|maps: [ ${MAPS} ]|" $EBOT_WEB_HOME/config/app.yml
+    
+    # Apache Config
+    sed -i "s|ServerName.*|ServerName $SERVERNAME|" /etc/apache2/sites-available/000-default.conf
+    sed -i "s|{SERVER_NAME} =.*|{SERVER_NAME} =$SERVERNAME|" /etc/apache2/sites-available/000-default.conf
+    sed -i "s|ServerName.*|ServerName $SERVERNAME|" /etc/apache2/sites-available/default-ssl.conf
+    sed -i "s|SSLCertificateFile.*|SSLCertificateFile $SSL_CERTIFICATE_PATH|" /etc/apache2/sites-available/default-ssl.conf
+    sed -i "s|SSLCertificateKeyFile.*|SSLCertificateKeyFile $SSL_KEY_PATH|" /etc/apache2/sites-available/default-ssl.conf
     
     touch .installed
 fi
