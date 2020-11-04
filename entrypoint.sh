@@ -1,8 +1,8 @@
 #!/bin/bash
 
 SERVERNAME="${SERVERNAME:-ebot.doamin.com}"
-SSL_CERTIFICATE_PATH="${SSL_CERTIFICATE_PATH:-/opt/ebot/ssl/cert.pem}"
-SSL_KEY_PATH="${SSL_KEY_PATH:-/opt/ebot/ssl/key.pem}"
+SSL_CERTIFICATE_PATH="${SSL_CERTIFICATE_PATH:-/opt/ebot/ssl/fullchain.pem}"
+SSL_KEY_PATH="${SSL_KEY_PATH:-/opt/ebot/ssl/privkey.pem}"
 
 EBOT_WEB_HOME='/var/www/html'
 
