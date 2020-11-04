@@ -26,7 +26,7 @@ EBOT_ADMIN_MAIL="${EBOT_ADMIN_MAIL:-admin@ebot}"
 
 TOORNAMENT_SECRET="${TOORNAMENT_SECRET:-}"
 TOORNAMENT_API_KEY="${TOORNAMENT_API_KEY:-}"
-TOORNAMENT_PLUGIN_KEY="${TOORNAMENT_PLUGIN_KEY:-azertylol}"
+TOORNAMENT_PLUGIN_KEY="${TOORNAMENT_PLUGIN_KEY:-}"
 
 MAPS="${MAPS:-de_dust2, de_nuke, de_inferno, de_train, de_mirage, de_vertigo, de_cache, de_overpass, de_cbble,}"
 
