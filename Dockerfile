@@ -2,7 +2,7 @@ FROM php:5.6.40-apache
 
 ENV TIMEZONE="Europe/Copenhagen"
 
-RUN mkdir -p /opt/ebot/demos /opt/ebot/logs && a2enmod rewrite ssl && \
+RUN mkdir -p /opt/ebot/demos /opt/ebot/logs /opt/ebot/ssl && a2enmod rewrite ssl && \
     docker-php-ext-install pdo_mysql && \
     echo 'date.timezone = "${TIMEZONE}"' >> /usr/local/etc/php/conf.d/php.ini && \
     apt-get update && apt-get -y install zip netcat && \
