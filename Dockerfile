@@ -20,7 +20,7 @@ RUN sed -i 's@#RewriteBase /@RewriteBase /@g' /var/www/html/web/.htaccess
 
 COPY 000-default.conf default-ssl.conf /etc/apache2/sites-available/
 
-COPY options-ssl-apache.conf /etc/apache2/conf-available/
+COPY options-ssl-apache.conf /opt/ebot/ssl
 
 RUN  a2ensite default-ssl.conf
 
