@@ -1,8 +1,8 @@
 #!/bin/bash
 
 SERVERNAME="${SERVERNAME:-ebot.doamin.com}"
-SSL_CERTIFICATE_PATH="${SSL_CERTIFICATE_PATH:-/opt/ebot/ssl/fullchain.pem}"
-SSL_KEY_PATH="${SSL_KEY_PATH:-/opt/ebot/ssl/privkey.pem}"
+SSL_CERTIFICATE_PATH="${SSL_CERTIFICATE_PATH:-/ebot/ssl/fullchain.pem}"
+SSL_KEY_PATH="${SSL_KEY_PATH:-/ebot/ssl/privkey.pem}"
 
 EBOT_WEB_HOME='/var/www/html'
 
@@ -17,8 +17,8 @@ MYSQL_PASS="${MYSQL_PASS:-ebotv3}"
 MYSQL_DB="${MYSQL_DB:-ebotv3}"
 
 DEMO_DOWNLOAD="${DEMO_DOWNLOAD:-true}"
-DEMO_FOLDER="${DEMO_FOLDER:-/opt/ebot/demos}"
-LOG_FOLDER="${LOG_FOLDER:-/opt/ebot/logs}"
+DEMO_FOLDER="${DEMO_FOLDER:-/ebot/demos}"
+LOG_FOLDER="${LOG_FOLDER:-/ebot/logs}"
 
 EBOT_ADMIN_USER="${EBOT_ADMIN_USER:-admin}"
 EBOT_ADMIN_PASS="${EBOT_ADMIN_PASS:-password}"
