@@ -17,11 +17,11 @@ RUN mkdir -p ${EBOT_HOME}/demos ${EBOT_HOME}/logs ${EBOT_HOME}/ssl && a2enmod re
     cp /var/www/html/config/app_user.yml.default /var/www/html/config/app_user.yml && \    
     chown www-data:www-data -R /var/www ${EBOT_HOME}
 
-RUN sed -i 's@#RewriteBase /@RewriteBase /@g' /var/www/html/web/.htaccess
+RUN sed -i "s|#RewriteBase.*|RewriteBase /|" /var/www/html/web/.htaccess
 
 COPY 000-default.conf default-ssl.conf /etc/apache2/sites-available/
 
-COPY options-ssl-apache.conf ${EBOT_HOME}/ssl
+COPY options-ssl-apache.conf ${EBOT_HOME}/ssl/
 
 RUN  a2ensite default-ssl.conf
 
