@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SERVERNAME="${SERVERNAME:-ebot.doamin.com}"
+DOMAIN="${DOMAIN:-ebot.doamin.com}"
 SSL_CERTIFICATE_PATH="${SSL_CERTIFICATE_PATH:-/ebot/ssl/fullchain.pem}"
 SSL_KEY_PATH="${SSL_KEY_PATH:-/ebot/ssl/privkey.pem}"
 
@@ -30,6 +30,8 @@ TOORNAMENT_PLUGIN_KEY="${TOORNAMENT_PLUGIN_KEY:-}"
 
 MAPS="${MAPS:-de_dust2, de_nuke, de_inferno, de_train, de_mirage, de_vertigo, de_cache, de_overpass, de_cbble,}"
 
+TIMEZONE="${TIMEZONE:-Europe/Copenhagen}"
+
 # for usage with docker-compose
 while ! nc -z $MYSQL_HOST $MYSQL_PORT; do sleep 3; done
 
@@ -55,11 +57,12 @@ then
     sed -i "s|maps:.*|maps: [ ${MAPS} ]|" $EBOT_WEB_HOME/config/app.yml
     
     # Apache Config
-    sed -i "s|ServerName.*|ServerName $SERVERNAME|" /etc/apache2/sites-available/000-default.conf
-    sed -i "s|{SERVER_NAME} =.*|{SERVER_NAME} =$SERVERNAME|" /etc/apache2/sites-available/000-default.conf
-    sed -i "s|ServerName.*|ServerName $SERVERNAME|" /etc/apache2/sites-available/default-ssl.conf
+    sed -i "s|ServerName.*|ServerName $DOMAIN|" /etc/apache2/sites-available/000-default.conf
+    sed -i "s|{SERVER_NAME} =.*|{SERVER_NAME} =$DOMAIN|" /etc/apache2/sites-available/000-default.conf
+    sed -i "s|ServerName.*|ServerName $DOMAIN|" /etc/apache2/sites-available/default-ssl.conf
     sed -i "s|SSLCertificateFile.*|SSLCertificateFile $SSL_CERTIFICATE_PATH|" /etc/apache2/sites-available/default-ssl.conf
     sed -i "s|SSLCertificateKeyFile.*|SSLCertificateKeyFile $SSL_KEY_PATH|" /etc/apache2/sites-available/default-ssl.conf
+    sed -i "s|date.timezone =.*|date.timezone = \"$TIMEZONE\"|" /usr/local/etc/php/conf.d/php.ini
     
     touch .installed
 fi
