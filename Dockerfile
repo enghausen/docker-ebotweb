@@ -6,7 +6,7 @@ ENV EBOT_HOME="/ebot" \
 RUN mkdir -p ${EBOT_HOME}/demos ${EBOT_HOME}/logs ${EBOT_HOME}/ssl && a2enmod rewrite ssl && \
     docker-php-ext-install pdo_mysql && \
     echo 'date.timezone = "${TIMEZONE}"' >> /usr/local/etc/php/conf.d/php.ini && \
-    apt-get update && apt-get -y install zip netcat cron && \
+    apt-get update && apt-get -y install zip netcat cron socat && \
     apt-get clean && \
     rm -rf /var/www/html/* && \
     curl -L https://github.com/enghausen/eBot-CSGO-Web/archive/master.zip >> /tmp/master.zip && \
