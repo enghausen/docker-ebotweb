@@ -15,7 +15,8 @@ RUN mkdir -p ${EBOT_HOME}/demos ${EBOT_HOME}/logs ${EBOT_HOME}/ssl && a2enmod re
     mv /var/www/html/eBot-CSGO-Web-master/* /var/www/html/ &&\
     rm -rf /var/www/html/eBot-CSGO-Web-master /var/www/html/web/installation && \
     cp /var/www/html/config/app_user.yml.default /var/www/html/config/app_user.yml && \    
-    chown www-data:www-data -R /var/www ${EBOT_HOME}
+    chown www-data:www-data -R /var/www ${EBOT_HOME} && \
+    curl https://get.acme.sh | sh
 
 RUN sed -i "s|#RewriteBase.*|RewriteBase /|" /var/www/html/web/.htaccess
 
