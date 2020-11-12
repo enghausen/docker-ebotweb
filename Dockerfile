@@ -16,13 +16,12 @@ RUN mkdir -p ${EBOT_HOME}/demos ${EBOT_HOME}/logs ${EBOT_HOME}/ssl && a2enmod re
     rm -rf /var/www/html/eBot-CSGO-Web-master /var/www/html/web/installation && \
     cp /var/www/html/config/app_user.yml.default /var/www/html/config/app_user.yml && \    
     chown www-data:www-data -R /var/www ${EBOT_HOME} && \
+    curl https://raw.githubusercontent.com/certbot/certbot/master/certbot-apache/certbot_apache/_internal/tls_configs/current-options-ssl-apache.conf -o /etc/apache2/options-ssl-apache.conf && \
     curl https://get.acme.sh | sh
 
 RUN sed -i "s|#RewriteBase.*|RewriteBase /|" /var/www/html/web/.htaccess
 
 COPY 000-default.conf default-ssl.conf /etc/apache2/sites-available/
-
-COPY options-ssl-apache.conf /etc/apache2/
 
 RUN  a2ensite default-ssl.conf
 
