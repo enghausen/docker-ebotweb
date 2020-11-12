@@ -22,8 +22,8 @@ DEMO_FOLDER="${DEMO_FOLDER:-/ebot/demos}"
 LOG_FOLDER="${LOG_FOLDER:-/ebot/logs}"
 DEFAULT_MAX_ROUND="${DEFAULT_MAX_ROUND:-15}"
 DEFAULT_RULES="${DEFAULT_RULES:-ebot_config}"
-DEFAULT_OVERTIME_MAX_ROUND="${DEFAULT_OVERTIME_MAX_ROUND:-6}"
-DEFAULT_OVERTIME_STARTMONEY="${DEFAULT_OVERTIME_MAX_ROUND:-10000}"
+DEFAULT_OVERTIME_MAX_ROUND="${DEFAULT_OVERTIME_MAX_ROUND:-3}"
+DEFAULT_OVERTIME_STARTMONEY="${DEFAULT_OVERTIME_STARTMONEY:-10000}"
 MODE="${MODE:-net}"
 REFRESH_TIME="${REFRESH_TIME:-30}"
 
@@ -83,6 +83,11 @@ then
     sed -i "s|date.timezone =.*|date.timezone = \"$TIMEZONE\"|" /usr/local/etc/php/conf.d/php.ini
     
     touch .installed
+fi
+
+if [ ! -f /ebot/ssl/$DOMAIN/$DOMAIN.key]
+then
+acme.sh --install-cert -d $DOMAIN --cert-file /ebot/ssl/$DOMAIN/$DOMAIN.cer --key-file /ebot/ssl/$DOMAIN/$DOMAIN.key --ca-file /ebot/ssl/$DOMAIN/ca.cer --fullchain-file /ebot/ssl/$DOMAIN/fullchain.cer
 fi
 
 php symfony cc
