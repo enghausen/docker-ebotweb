@@ -7,7 +7,7 @@ DOMAIN="${DOMAIN:-ebot.doamin.com}"
 MYSQL_HOST="${MYSQL_HOST:-mysql}"
 MYSQL_PORT="${MYSQL_PORT:-3306}"
 MYSQL_USER="${MYSQL_USER:-ebotv3}"
-MYSQL_PASS="${MYSQL_PASS:-ebotv3}"
+MYSQL_PASSWORD="${MYSQL_PASSWORD:-ebotv3}"
 MYSQL_DATABASE="${MYSQL_DATABASE:-ebotv3}"
 
 # eBotWeb settings (settings in app_user.yml)
@@ -48,7 +48,7 @@ while ! nc -z $MYSQL_HOST $MYSQL_PORT; do sleep 3; done
 
 if [ ! -f .installed ]
 then
-    php symfony configure:database "mysql:host=${MYSQL_HOST};dbname=${MYSQL_DATABASE}" $MYSQL_USER $MYSQL_PASS
+    php symfony configure:database "mysql:host=${MYSQL_HOST};dbname=${MYSQL_DATABASE}" $MYSQL_USER $MYSQL_PASSWORD
     php symfony doctrine:insert-sql
     php symfony guard:create-user --is-super-admin $EBOT_ADMIN_MAIL $EBOT_ADMIN_USER $EBOT_ADMIN_PASS
 
