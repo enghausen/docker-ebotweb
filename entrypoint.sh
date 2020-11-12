@@ -28,8 +28,8 @@ MODE="${MODE:-net}"
 REFRESH_TIME="${REFRESH_TIME:-30}"
 
 # SSL settings
-SSL_CERTIFICATE_PATH="${SSL_CERTIFICATE_PATH:-/ebot/ssl/fullchain.cer}"
-SSL_KEY_PATH="${SSL_KEY_PATH:-/ebot/ssl/$DOMAIN.key}"
+SSL_CERTIFICATE_PATH="${SSL_CERTIFICATE_PATH:-/ebot/ssl/$DOMAIN/fullchain.cer}"
+SSL_KEY_PATH="${SSL_KEY_PATH:-/ebot/ssl/$DOMAIN/$DOMAIN.key}"
 
 # Toonament settings
 TOORNAMENT_ID="${TOORNAMENT_ID:-}"
