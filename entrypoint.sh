@@ -18,8 +18,8 @@ EBOT_ADMIN_USER="${EBOT_ADMIN_USER:-admin}"
 EBOT_ADMIN_PASS="${EBOT_ADMIN_PASS:-password}"
 EBOT_ADMIN_MAIL="${EBOT_ADMIN_MAIL:-admin@ebot}"
 DEMO_DOWNLOAD="${DEMO_DOWNLOAD:-true}"
-DEMO_FOLDER="${DEMO_FOLDER:-/ebot/demos}"
-LOG_FOLDER="${LOG_FOLDER:-/ebot/logs}"
+DEMO_FOLDER="${DEMO_FOLDER:-$EBOT_HOME/demos}"
+LOG_FOLDER="${LOG_FOLDER:-$EBOT_HOME/logs}"
 DEFAULT_MAX_ROUND="${DEFAULT_MAX_ROUND:-15}"
 DEFAULT_RULES="${DEFAULT_RULES:-ebot_config}"
 DEFAULT_OVERTIME_MAX_ROUND="${DEFAULT_OVERTIME_MAX_ROUND:-3}"
@@ -28,8 +28,8 @@ MODE="${MODE:-net}"
 REFRESH_TIME="${REFRESH_TIME:-30}"
 
 # SSL settings
-SSL_CERTIFICATE_PATH="${SSL_CERTIFICATE_PATH:-/ebot/ssl/$DOMAIN/fullchain.cer}"
-SSL_KEY_PATH="${SSL_KEY_PATH:-/ebot/ssl/$DOMAIN/$DOMAIN.key}"
+SSL_CERTIFICATE_PATH="${SSL_CERTIFICATE_PATH:-$EBOT_HOME/ssl/$DOMAIN/fullchain.cer}"
+SSL_KEY_PATH="${SSL_KEY_PATH:-$EBOT_HOME/ssl/$DOMAIN/$DOMAIN.key}"
 
 # Toonament settings
 TOORNAMENT_ID="${TOORNAMENT_ID:-}"
@@ -87,13 +87,14 @@ fi
 
 if [ ! -f /ebot/ssl/$DOMAIN/$DOMAIN.key ]
 then
-    mkdir -p /ebot/ssl/$DOMAIN
-    /root/.acme.sh/acme.sh --issue --standalone -d $DOMAIN
-    /root/.acme.sh/acme.sh --install-cert -d $DOMAIN \
-    --cert-file /ebot/ssl/$DOMAIN/$DOMAIN.cer \
-    --key-file /ebot/ssl/$DOMAIN/$DOMAIN.key \
-    --ca-file /ebot/ssl/$DOMAIN/ca.cer \
-    --fullchain-file /ebot/ssl/$DOMAIN/fullchain.cer \
+    mkdir -p $EBOT_HOME/ssl/$DOMAIN
+    /acme.sh/acme.sh --install --home $EBOT_HOME/acme.sh
+    /acme.sh/acme.sh --issue --standalone -d $DOMAIN
+    /acme.sh/acme.sh --install-cert -d $DOMAIN \
+    --cert-file $EBOT_HOME/ssl/$DOMAIN/$DOMAIN.cer \
+    --key-file $EBOT_HOME/ssl/$DOMAIN/$DOMAIN.key \
+    --ca-file $EBOT_HOME/ssl/$DOMAIN/ca.cer \
+    --fullchain-file $EBOT_HOME/ssl/$DOMAIN/fullchain.cer \
     --reloadcmd "service apache2 force-reload && docker exec -d ebot-ssl forever restart websocket_server.js"
 fi
 
