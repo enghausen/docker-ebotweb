@@ -89,7 +89,7 @@ if [ ! -f /ebot/ssl/$DOMAIN/$DOMAIN.key ]
 then
     mkdir -p /ebot/ssl/$DOMAIN
     /root/.acme.sh/acme.sh --issue --standalone -d $DOMAIN
-    /root/.acme.sh/acme.sh --install-cert -d $DOMAIN --cert-file /ebot/ssl/$DOMAIN/$DOMAIN.cer --key-file /ebot/ssl/$DOMAIN/$DOMAIN.key --ca-file /ebot/ssl/$DOMAIN/ca.cer --fullchain-file /ebot/ssl/$DOMAIN/fullchain.cer --reloadcmd "service apache2 force-reload"
+    /root/.acme.sh/acme.sh --install-cert -d $DOMAIN --cert-file /ebot/ssl/$DOMAIN/$DOMAIN.cer --key-file /ebot/ssl/$DOMAIN/$DOMAIN.key --ca-file /ebot/ssl/$DOMAIN/ca.cer --fullchain-file /ebot/ssl/$DOMAIN/fullchain.cer --reloadcmd "service apache2 force-reload && docker exec -d ebot-ssl forever restart websocket_server.js"
 fi
 
 php symfony cc
