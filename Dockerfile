@@ -3,7 +3,7 @@ FROM php:5.6.40-apache
 ENV EBOT_HOME="/ebot" \
     TIMEZONE="Europe/Copenhagen"
 
-RUN mkdir -p ${EBOT_HOME}/demos ${EBOT_HOME}/logs ${EBOT_HOME}/ssl && a2enmod rewrite ssl && \
+RUN mkdir -p ${EBOT_HOME}/demos ${EBOT_HOME}/logs ${EBOT_HOME}/ssl ${EBOT_HOME}/acme.sh && a2enmod rewrite ssl && \
     docker-php-ext-install pdo_mysql && \
     echo 'date.timezone = "${TIMEZONE}"' >> /usr/local/etc/php/conf.d/php.ini && \
     apt-get update && apt-get -y install zip netcat cron socat apt-transport-https ca-certificates gnupg-agent software-properties-common && \
@@ -22,7 +22,7 @@ RUN mkdir -p ${EBOT_HOME}/demos ${EBOT_HOME}/logs ${EBOT_HOME}/ssl && a2enmod re
     chown www-data:www-data -R /var/www ${EBOT_HOME} && \
     curl https://raw.githubusercontent.com/certbot/certbot/master/certbot-apache/certbot_apache/_internal/tls_configs/current-options-ssl-apache.conf \ 
     -o /etc/apache2/options-ssl-apache.conf && \
-    curl https://get.acme.sh | sh
+    git clone https://github.com/Neilpang/acme.sh.git /acme.me
 
 RUN sed -i "s|#RewriteBase.*|RewriteBase /|" /var/www/html/web/.htaccess
 
