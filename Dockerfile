@@ -22,7 +22,7 @@ RUN mkdir -p ${EBOT_HOME}/demos ${EBOT_HOME}/logs ${EBOT_HOME}/ssl ${EBOT_HOME}/
     chown www-data:www-data -R /var/www ${EBOT_HOME} && \
     curl https://raw.githubusercontent.com/certbot/certbot/master/certbot-apache/certbot_apache/_internal/tls_configs/current-options-ssl-apache.conf \ 
     -o /etc/apache2/options-ssl-apache.conf && \
-    git clone https://github.com/Neilpang/acme.sh.git /acme.me
+    git clone https://github.com/Neilpang/acme.sh.git /acme.sh
 
 RUN sed -i "s|#RewriteBase.*|RewriteBase /|" /var/www/html/web/.htaccess
 
