@@ -87,6 +87,7 @@ fi
 
 if [ ! -f /ebot/ssl/$DOMAIN/$DOMAIN.key ]
 then
+    mkdir -p /ebot/ssl/$DOMAIN
     /root/.acme.sh/acme.sh --issue --standalone -d $DOMAIN
     /root/.acme.sh/acme.sh --install-cert -d $DOMAIN && \
         --cert-file /ebot/ssl/$DOMAIN/$DOMAIN.cer && \
