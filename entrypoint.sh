@@ -92,12 +92,13 @@ then
     ./acme.sh --install --home $EBOT_HOME/acme.sh
 fi
 
-# Get certificat for domain
+# Get certificate for domain
 if [ ! -f /ebot/ssl/$DOMAIN/$DOMAIN.key ]
 then
     mkdir -p $EBOT_HOME/ssl/$DOMAIN
-    acme.sh --issue --standalone -d $DOMAIN
-    acme.sh --install-cert -d $DOMAIN \
+    cd $EBOT_HOME/acme.sh
+    ./acme.sh --issue --standalone -d $DOMAIN
+    ./acme.sh --install-cert -d $DOMAIN \
     --cert-file $EBOT_HOME/ssl/$DOMAIN/$DOMAIN.cer \
     --key-file $EBOT_HOME/ssl/$DOMAIN/$DOMAIN.key \
     --ca-file $EBOT_HOME/ssl/$DOMAIN/ca.cer \
