@@ -97,8 +97,8 @@ if [ ! -f /ebot/ssl/$DOMAIN/$DOMAIN.key ]
 then
     mkdir -p $EBOT_HOME/ssl/$DOMAIN
     cd $EBOT_HOME/acme.sh
-    ./acme.sh --issue --standalone -d $DOMAIN
-    ./acme.sh --install-cert -d $DOMAIN \
+    ./acme.sh --home $EBOT_HOME/acme.sh --issue --standalone -d $DOMAIN
+    ./acme.sh --home $EBOT_HOME/acme.sh --install-cert -d $DOMAIN \
     --cert-file $EBOT_HOME/ssl/$DOMAIN/$DOMAIN.cer \
     --key-file $EBOT_HOME/ssl/$DOMAIN/$DOMAIN.key \
     --ca-file $EBOT_HOME/ssl/$DOMAIN/ca.cer \
