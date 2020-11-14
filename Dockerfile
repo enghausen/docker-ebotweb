@@ -6,6 +6,7 @@ ENV EBOT_HOME="/ebot" \
 RUN mkdir -p ${EBOT_HOME}/demos ${EBOT_HOME}/logs ${EBOT_HOME}/ssl ${EBOT_HOME}/acme.sh && a2enmod rewrite ssl && \
     docker-php-ext-install pdo_mysql && \
     echo 'date.timezone = "${TIMEZONE}"' >> /usr/local/etc/php/conf.d/php.ini && \
+    echo 'ServerName localhost' >> /etc/apache2/apache2.conf && \
     apt-get update && apt-get -y install zip netcat cron socat apt-transport-https ca-certificates gnupg-agent software-properties-common && \
     curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
     add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable" && \
