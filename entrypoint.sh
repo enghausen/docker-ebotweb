@@ -103,7 +103,7 @@ then
     --key-file $EBOT_HOME/ssl/$DOMAIN/$DOMAIN.key \
     --ca-file $EBOT_HOME/ssl/$DOMAIN/ca.cer \
     --fullchain-file $EBOT_HOME/ssl/$DOMAIN/fullchain.cer \
-    --reloadcmd "service apache2 force-reload && docker exec -d ebot-ssl forever restart websocket_server.js"
+    --reloadcmd "docker exec -d ebot-ssl forever restart websocket_server.js && service apache2 force-reload"
 fi
 
 # Install cronjob after recreating on config change
