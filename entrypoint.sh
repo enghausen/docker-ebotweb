@@ -46,44 +46,44 @@ MAPS="${MAPS:-de_dust2, de_nuke, de_inferno, de_train, de_mirage, de_vertigo, de
 # For usage with docker-compose
 while ! nc -z $MYSQL_HOST $MYSQL_PORT; do sleep 3; done
 
-if [ ! -f .installed ]
+# First time install
+if [ ! -f $EBOT_HOME/logs/.installed ]
 then
     php symfony configure:database "mysql:host=${MYSQL_HOST};dbname=${MYSQL_DATABASE}" $MYSQL_USER $MYSQL_PASSWORD
     php symfony doctrine:insert-sql
     php symfony guard:create-user --is-super-admin $EBOT_ADMIN_MAIL $EBOT_ADMIN_USER $EBOT_ADMIN_PASS
-
-    # Manage eBotWeb configs (app_user.yml and app.yml)
-    sed -i "s|log_match:.*|log_match: ${LOG_FOLDER}/log_match|" $EBOT_WEB_HOME/config/app_user.yml
-    sed -i "s|log_match_admin:.*|log_match_admin: ${LOG_FOLDER}/log_match_admin|" $EBOT_WEB_HOME/config/app_user.yml
-    sed -i "s|demo_path:.*|demo_path: ${DEMO_FOLDER}|" $EBOT_WEB_HOME/config/app_user.yml
-    sed -i "s|default_max_round:.*|default_max_round: ${DEFAULT_MAX_ROUND}|" $EBOT_WEB_HOME/config/app_user.yml
-    sed -i "s|default_rules:.*|default_rules: ${DEFAULT_RULES}|" $EBOT_WEB_HOME/config/app_user.yml
-    sed -i "s|default_overtime_max_round:.*|default_overtime_max_round: ${DEFAULT_OVERTIME_MAX_ROUND}|" $EBOT_WEB_HOME/config/app_user.yml
-    sed -i "s|default_overtime_startmoney:.*|default_overtime_startmoney: ${DEFAULT_OVERTIME_STARTMONEY}|" $EBOT_WEB_HOME/config/app_user.yml
-    sed -i "s|demo_download:.*|demo_download: ${DEMO_DOWNLOAD}|" $EBOT_WEB_HOME/config/app_user.yml
-    sed -i "s|ebot_proto:.*|ebot_proto: ${EBOT_PROTO}|" $EBOT_WEB_HOME/config/app_user.yml
-    sed -i "s|ebot_ip:.*|ebot_ip: ${DOMAIN}|" $EBOT_WEB_HOME/config/app_user.yml
-    sed -i "s|ebot_port:.*|ebot_port: ${EBOT_PORT}|" $EBOT_WEB_HOME/config/app_user.yml
-    sed -i "s|mode:.*|mode: ${MODE}|" $EBOT_WEB_HOME/config/app_user.yml
-    sed -i "s|refresh_time:.*|refresh_time: ${REFRESH_TIME}|" $EBOT_WEB_HOME/config/app_user.yml
-    sed -i "s|toornament_id:.*|toornament_id: ${TOORNAMENT_ID}|" $EBOT_WEB_HOME/config/app_user.yml
-    sed -i "s|toornament_secret:.*|toornament_secret: ${TOORNAMENT_SECRET}|" $EBOT_WEB_HOME/config/app_user.yml
-    sed -i "s|toornament_api_key:.*|toornament_api_key: ${TOORNAMENT_API_KEY}|" $EBOT_WEB_HOME/config/app_user.yml
-    sed -i "s|toornament_plugin_key:.*|toornament_plugin_key: ${TOORNAMENT_PLUGIN_KEY}|" $EBOT_WEB_HOME/config/app_user.yml
-    sed -i "s|maps:.*|maps: [ ${MAPS} ]|" $EBOT_WEB_HOME/config/app.yml
-    
-    # Apache config
-    sed -i "s|ServerName.*|ServerName $DOMAIN|" /etc/apache2/sites-available/000-default.conf
-    sed -i "s|{SERVER_NAME} =.*|{SERVER_NAME} =$DOMAIN|" /etc/apache2/sites-available/000-default.conf
-    sed -i "s|ServerName.*|ServerName $DOMAIN|" /etc/apache2/sites-available/default-ssl.conf
-    sed -i "s|SSLCertificateFile.*|SSLCertificateFile $SSL_CERTIFICATE_PATH|" /etc/apache2/sites-available/default-ssl.conf
-    sed -i "s|SSLCertificateKeyFile.*|SSLCertificateKeyFile $SSL_KEY_PATH|" /etc/apache2/sites-available/default-ssl.conf
-    
-    # PHP config
-    sed -i "s|date.timezone =.*|date.timezone = \"$TIMEZONE\"|" /usr/local/etc/php/conf.d/php.ini
-    
-    touch .installed
+    touch $EBOT_HOME/logs/.installed
 fi
+
+# Manage eBotWeb configs (app_user.yml and app.yml)
+sed -i "s|log_match:.*|log_match: ${LOG_FOLDER}/log_match|" $EBOT_WEB_HOME/config/app_user.yml
+sed -i "s|log_match_admin:.*|log_match_admin: ${LOG_FOLDER}/log_match_admin|" $EBOT_WEB_HOME/config/app_user.yml
+sed -i "s|demo_path:.*|demo_path: ${DEMO_FOLDER}|" $EBOT_WEB_HOME/config/app_user.yml
+sed -i "s|default_max_round:.*|default_max_round: ${DEFAULT_MAX_ROUND}|" $EBOT_WEB_HOME/config/app_user.yml
+sed -i "s|default_rules:.*|default_rules: ${DEFAULT_RULES}|" $EBOT_WEB_HOME/config/app_user.yml
+sed -i "s|default_overtime_max_round:.*|default_overtime_max_round: ${DEFAULT_OVERTIME_MAX_ROUND}|" $EBOT_WEB_HOME/config/app_user.yml
+sed -i "s|default_overtime_startmoney:.*|default_overtime_startmoney: ${DEFAULT_OVERTIME_STARTMONEY}|" $EBOT_WEB_HOME/config/app_user.yml
+sed -i "s|demo_download:.*|demo_download: ${DEMO_DOWNLOAD}|" $EBOT_WEB_HOME/config/app_user.yml
+sed -i "s|ebot_proto:.*|ebot_proto: ${EBOT_PROTO}|" $EBOT_WEB_HOME/config/app_user.yml
+sed -i "s|ebot_ip:.*|ebot_ip: ${DOMAIN}|" $EBOT_WEB_HOME/config/app_user.yml
+sed -i "s|ebot_port:.*|ebot_port: ${EBOT_PORT}|" $EBOT_WEB_HOME/config/app_user.yml
+sed -i "s|mode:.*|mode: ${MODE}|" $EBOT_WEB_HOME/config/app_user.yml
+sed -i "s|refresh_time:.*|refresh_time: ${REFRESH_TIME}|" $EBOT_WEB_HOME/config/app_user.yml
+sed -i "s|toornament_id:.*|toornament_id: ${TOORNAMENT_ID}|" $EBOT_WEB_HOME/config/app_user.yml
+sed -i "s|toornament_secret:.*|toornament_secret: ${TOORNAMENT_SECRET}|" $EBOT_WEB_HOME/config/app_user.yml
+sed -i "s|toornament_api_key:.*|toornament_api_key: ${TOORNAMENT_API_KEY}|" $EBOT_WEB_HOME/config/app_user.yml
+sed -i "s|toornament_plugin_key:.*|toornament_plugin_key: ${TOORNAMENT_PLUGIN_KEY}|" $EBOT_WEB_HOME/config/app_user.yml
+sed -i "s|maps:.*|maps: [ ${MAPS} ]|" $EBOT_WEB_HOME/config/app.yml
+    
+# Apache config
+sed -i "s|ServerName.*|ServerName $DOMAIN|" /etc/apache2/sites-available/000-default.conf
+sed -i "s|{SERVER_NAME} =.*|{SERVER_NAME} =$DOMAIN|" /etc/apache2/sites-available/000-default.conf
+sed -i "s|ServerName.*|ServerName $DOMAIN|" /etc/apache2/sites-available/default-ssl.conf
+sed -i "s|SSLCertificateFile.*|SSLCertificateFile $SSL_CERTIFICATE_PATH|" /etc/apache2/sites-available/default-ssl.conf
+sed -i "s|SSLCertificateKeyFile.*|SSLCertificateKeyFile $SSL_KEY_PATH|" /etc/apache2/sites-available/default-ssl.conf
+    
+# PHP config
+sed -i "s|date.timezone =.*|date.timezone = \"$TIMEZONE\"|" /usr/local/etc/php/conf.d/php.ini
 
 # Install acme.sh to persistent path
 if [ ! -f $EBOT_HOME/acme.sh/acme.sh ]
@@ -104,6 +104,13 @@ then
     --ca-file $EBOT_HOME/ssl/$DOMAIN/ca.cer \
     --fullchain-file $EBOT_HOME/ssl/$DOMAIN/fullchain.cer \
     --reloadcmd "service apache2 force-reload && docker exec -d ebot-ssl forever restart websocket_server.js"
+fi
+
+# Install cronjob after recreating on config change
+if [ $(crontab -l | wc -c) -eq 0 ]
+then
+    cd $EBOT_HOME/acme.sh
+    ./acme.sh --home $EBOT_HOME/acme.sh --install-cronjob
 fi
 
 php symfony cc
