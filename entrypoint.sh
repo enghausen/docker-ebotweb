@@ -88,6 +88,7 @@ sed -i "s|date.timezone =.*|date.timezone = \"$TIMEZONE\"|" /usr/local/etc/php/c
 # Install acme.sh to persistent path
 if [ ! -f $EBOT_HOME/acme.sh/acme.sh ]
 then
+    echo "Installing acme.sh"
     cd /acme.sh
     ./acme.sh --install --home $EBOT_HOME/acme.sh
 fi
@@ -95,6 +96,7 @@ fi
 # Get certificate for domain
 if [ ! -f /ebot/ssl/$DOMAIN/$DOMAIN.key ]
 then
+    echo "Getting certificate for domain"
     mkdir -p $EBOT_HOME/ssl/$DOMAIN
     cd $EBOT_HOME/acme.sh
     ./acme.sh --home $EBOT_HOME/acme.sh --issue --standalone -d $DOMAIN
@@ -109,6 +111,7 @@ fi
 # Install cronjob after recreating on config change
 if [ $(crontab -l | wc -c) -eq 0 ]
 then
+    echo "Installing cronjob for acme.sh"
     cd $EBOT_HOME/acme.sh
     ./acme.sh --home $EBOT_HOME/acme.sh --install-cronjob
 fi
