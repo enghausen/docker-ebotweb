@@ -12,7 +12,6 @@ MYSQL_DATABASE="${MYSQL_DATABASE:-ebotv3}"
 
 # eBotWeb settings (settings in app_user.yml)
 EBOT_WEB_HOME='/var/www/html'
-EBOT_PROTO="${EBOT_PROTO:-https://}"
 EBOT_PORT="${EBOT_PORT:-12360}"
 EBOT_ADMIN_USER="${EBOT_ADMIN_USER:-admin}"
 EBOT_ADMIN_PASS="${EBOT_ADMIN_PASS:-password}"
@@ -64,7 +63,6 @@ sed -i "s|default_rules:.*|default_rules: ${DEFAULT_RULES}|" $EBOT_WEB_HOME/conf
 sed -i "s|default_overtime_max_round:.*|default_overtime_max_round: ${DEFAULT_OVERTIME_MAX_ROUND}|" $EBOT_WEB_HOME/config/app_user.yml
 sed -i "s|default_overtime_startmoney:.*|default_overtime_startmoney: ${DEFAULT_OVERTIME_STARTMONEY}|" $EBOT_WEB_HOME/config/app_user.yml
 sed -i "s|demo_download:.*|demo_download: ${DEMO_DOWNLOAD}|" $EBOT_WEB_HOME/config/app_user.yml
-sed -i "s|ebot_proto:.*|ebot_proto: ${EBOT_PROTO}|" $EBOT_WEB_HOME/config/app_user.yml
 sed -i "s|ebot_ip:.*|ebot_ip: ${DOMAIN}|" $EBOT_WEB_HOME/config/app_user.yml
 sed -i "s|ebot_port:.*|ebot_port: ${EBOT_PORT}|" $EBOT_WEB_HOME/config/app_user.yml
 sed -i "s|mode:.*|mode: ${MODE}|" $EBOT_WEB_HOME/config/app_user.yml
@@ -114,6 +112,7 @@ then
     echo "Installing cronjob for acme.sh"
     cd $EBOT_HOME/acme.sh
     ./acme.sh --home $EBOT_HOME/acme.sh --install-cronjob
+    echo "Configuring databases with symfony after recreating"
     php $EBOT_WEB_HOME/symfony configure:database "mysql:host=${MYSQL_HOST};dbname=${MYSQL_DATABASE}" $MYSQL_USER $MYSQL_PASSWORD
 fi
 
