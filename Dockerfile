@@ -14,11 +14,11 @@ RUN mkdir -p ${EBOT_HOME}/demos ${EBOT_HOME}/logs ${EBOT_HOME}/ssl ${EBOT_HOME}/
     apt-get -y install docker-ce docker-ce-cli containerd.io && \
     apt-get clean && \
     rm -rf /var/www/html/* && \
-    curl -L https://github.com/enghausen/eBot-CSGO-Web/archive/test.zip >> /tmp/test.zip && \
-    unzip -d /var/www/html /tmp/test.zip && \
+    curl -L https://github.com/enghausen/eBot-CSGO-Web/archive/master.zip >> /tmp/master.zip && \
+    unzip -d /var/www/html /tmp/master.zip && \
     rm -rf /tmp/* && \
-    mv /var/www/html/eBot-CSGO-Web-test/* /var/www/html/ &&\
-    rm -rf /var/www/html/eBot-CSGO-Web-test /var/www/html/web/installation && \
+    mv /var/www/html/eBot-CSGO-Web-master/* /var/www/html/ &&\
+    rm -rf /var/www/html/eBot-CSGO-Web-master /var/www/html/web/installation && \
     cp /var/www/html/config/app_user.yml.default /var/www/html/config/app_user.yml && \    
     chown www-data:www-data -R /var/www ${EBOT_HOME} && \
     curl https://raw.githubusercontent.com/certbot/certbot/master/certbot-apache/certbot_apache/_internal/tls_configs/current-options-ssl-apache.conf \ 
