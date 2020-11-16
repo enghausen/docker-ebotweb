@@ -114,10 +114,9 @@ then
     echo "Installing cronjob for acme.sh"
     cd $EBOT_HOME/acme.sh
     ./acme.sh --home $EBOT_HOME/acme.sh --install-cronjob
-    php symfony configure:database "mysql:host=${MYSQL_HOST};dbname=${MYSQL_DATABASE}" $MYSQL_USER $MYSQL_PASSWORD
+    php $EBOT_WEB_HOME/symfony configure:database "mysql:host=${MYSQL_HOST};dbname=${MYSQL_DATABASE}" $MYSQL_USER $MYSQL_PASSWORD
 fi
 
-cd /var/www/html/
-php symfony cc
+php $EBOT_WEB_HOME/symfony cc
 
 apache2-foreground
