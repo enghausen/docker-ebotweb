@@ -108,12 +108,13 @@ then
     --reloadcmd "docker exec -d ebot-ssl forever restart websocket_server.js && service apache2 force-reload"
 fi
 
-# Install cronjob after recreating on config change
+# Install cronjob and reconnect to MYSQL after recreating on config change
 if [ $(crontab -l | wc -c) -eq 0 ]
 then
     echo "Installing cronjob for acme.sh"
     cd $EBOT_HOME/acme.sh
     ./acme.sh --home $EBOT_HOME/acme.sh --install-cronjob
+    php symfony configure:database "mysql:host=${MYSQL_HOST};dbname=${MYSQL_DATABASE}" $MYSQL_USER $MYSQL_PASSWORD
 fi
 
 cd /var/www/html/
