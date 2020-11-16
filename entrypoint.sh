@@ -116,6 +116,7 @@ then
     ./acme.sh --home $EBOT_HOME/acme.sh --install-cronjob
 fi
 
+cd /var/www/html/
 php symfony cc
 
 apache2-foreground
