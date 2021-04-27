@@ -104,6 +104,8 @@ then
     --ca-file $EBOT_HOME/ssl/$DOMAIN/ca.cer \
     --fullchain-file $EBOT_HOME/ssl/$DOMAIN/fullchain.cer \
     --reloadcmd "docker exec -d ebot-ssl forever restart websocket_server.js && service apache2 force-reload"
+    # Add webroot path to ensure certificate renewal using ACME webroot mode
+    sed -i "s|Le_Webroot.*|Le_Webroot='/var/www/html/web'|" $EBOT_HOME/acme.sh/$DOMAIN/$DOMAIN.conf
 fi
 
 # Install cronjob and reconnect to MYSQL after recreating on config change
